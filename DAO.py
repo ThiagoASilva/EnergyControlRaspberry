@@ -23,6 +23,7 @@ class DAO:
         self.con.commit()
 
     def balancoDoBanco(self):
+        self.con.select_db("medicoes")
         cursor = self.con.cursor()
         sintaxeSQL = "SELECT Id_disp FROM Medicao_diaria"
         cursor.execute(sintaxeSQL)
@@ -31,6 +32,6 @@ class DAO:
         #teste
 
         for row in idDisp:
-            print(row)
+            print(row[0])
 
 pass

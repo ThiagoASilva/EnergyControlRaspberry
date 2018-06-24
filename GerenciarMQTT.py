@@ -14,8 +14,8 @@ class GerenciarMQTT:
         self.Marca = "[EnergyControl]"
         self.Banco = DAO.DAO()
         #Fim Definicoes------
-
         self.iniciarMqtt()
+
 
 
     def on_connect(self, client, userdata, flags, rc):
