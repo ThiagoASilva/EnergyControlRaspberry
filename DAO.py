@@ -1,4 +1,6 @@
 import MySQLdb
+from datetime import datetime
+
 class DAO:
     def __init__(self):
         # definicoes:
@@ -23,15 +25,22 @@ class DAO:
         self.con.commit()
 
     def balancoDoBanco(self):
+        now = datetime.now()
         self.con.select_db("medicoes")
         cursor = self.con.cursor()
-        sintaxeSQL = "SELECT Id_disp FROM Medicao_diaria"
+        sintaxeSQL = "SELECT distinct Id_disp FROM Medicao_diaria"
         cursor.execute(sintaxeSQL)
         idDisp = cursor.fetchall()
 
         #teste
 
         for row in idDisp:
-            print(row[0])
+            print(row)
+
+        if(str(now.day)=="1"):
+            print("HOJE È DIA UM, Passando os Dados da tabela Medicoes_mensal para a tabela Historico_medicoes")
+        else:
+            print("Hoje não é dia 1, hoje é: " + str(now.day))
+
 
 pass

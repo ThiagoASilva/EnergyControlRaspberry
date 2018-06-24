@@ -1,6 +1,7 @@
 import DAO
 import schedule
 import time
+import threading
 import GerenciarMQTT
 
 class Tarefas:
@@ -15,7 +16,9 @@ class Tarefas:
 
     def iniciar(self):
         print("Iniciando a programacao de tarefas")
-        self.GMQTT = GerenciarMQTT.GerenciarMQTT()
+#        job_thread = threading.Thread(target=GerenciarMQTT.GerenciarMQTT)
+#        job_thread.start()
+
         schedule.every(1).minutes.do(self.balancodobanco)
 
         while True:
