@@ -70,8 +70,8 @@ class GerenciarMQTT:
                 argumentos = linhaN.obterargumentos(MensagemRecebida)
                 dispositivo = argumentos[0]
                 comando = argumentos[1]
-#                mensagem = "ENERGYCONTROL/"+dispositivo+"/"+comando+"/"
-                mensagem = "ESPTomada1"
+                mensagem = "ENERGYCONTROL/ESPTomada1/"+comando+"/"
+#                mensagem = "ESPTomada1"
 
                 self.enviarMensagem(mensagem)
         else:
