@@ -11,7 +11,7 @@ class DAO:
         self.con.cursor().execute("CREATE DATABASE IF NOT EXISTS medicoes")
         self.con.select_db("medicoes")
         cursor = self.con.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS Configuracoes(Id int not null auto_increment primary key,Senha varchar(12), Email varchar(30), IP varchar(16))")
+        cursor.execute("CREATE TABLE IF NOT EXISTS Configuracoes(Id int not null auto_increment primary key, IP varchar(16))")
         cursor.execute("CREATE TABLE IF NOT EXISTS Dispositivos(Id_Disp int not null auto_increment primary key,MQTT_name varchar(10), ativo boolean not null default 1, Id_icone varchar(2), Porcentagem_meta varchar(3), Desliga_auto boolean not null default 1, Notifica boolean not null default 1)")
         cursor.execute("CREATE TABLE IF NOT EXISTS Medicao_diaria(Id int not null auto_increment primary key,Id_disp varchar(10), hora varchar(10), kwh varchar(10))")
         cursor.execute("CREATE TABLE IF NOT EXISTS Medicao_mensal(Id int not null auto_increment primary key,Id_disp varchar(10), dia varchar(10), kwh_dia varchar(10))")
@@ -41,6 +41,20 @@ class DAO:
             print("HOJE È DIA UM, Passando os Dados da tabela Medicoes_mensal para a tabela Historico_medicoes")
         else:
             print("Hoje não é dia 1, hoje é: " + str(now.day))
+
+    def listaDeDispositivos(self):
+        self.con.select_db("medicoes")
+        cursor = self.con.cursor()
+        sintaxeSQL = "SELECT distinct Id_disp FROM Dispositivos"
+        cursor.execute(sintaxeSQL)
+        idDisp = cursor.fetchall()
+        lista = "";
+        for row in idDisp:
+            id = str(row).replace("(", "");
+            id = id.replace(")","") ;
+            id = id.replace(",", "");
+            lista += id + "%";
+        return lista
 
 
 pass
